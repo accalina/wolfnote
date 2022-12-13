@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://static.cloudwolf.net/axios/axios.js"></script>
+    <script src="https://static.cloudwolf.net/vue/vue.js"></script>
+    <title>Cloudwolf Notes</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="core-instance">
+        <div v-if="!auth.token" id="login-display">
+            <div>
+                <h1>Todo App</h1>
+            </div>
+            <fieldset class="fieldset">
+                <legend>Authenticate</legend>
+
+                <table>
+                    <tr>
+                        <td><label for="username">Username: </label></td>
+                        <td><input type="text" name="username" id="username" v-model="auth.username"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="password">Password: </label></td>
+                        <td><input @keyup.enter="fetch_user_token()" type="password" name="password" id="password" v-model="auth.password"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <button @click="fetch_user_token()">login</button>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+        </div>
+        <div v-else id="main-content">
+            <div>
+                <h1>Todo App <i class="ri-restart-line" @click="fetch_notes_data()"></i><i class="ri-logout-circle-r-line" @click="logout()"></i></h1>
+            </div>
+            <div>
+                <input type="checkbox" id="is_show_all_data" v-model="show_all" @click="change_task_show_rules()" />
+                <label v-if="show_all" for="is_show_all_data">Showing all task</label>
+                <label v-else for="is_show_all_data">Showing unfinished Task</label>
+            </div>
+            <br>
+            <fieldset class="fieldset">
+                <legend>Tasklist</legend>
+                <h2 v-if="!notes.length">No task found</h2>
+                <ol>
+                    <li v-for="note in notes">
+                        <div v-if="note.is_done">
+                            <i class="ri-delete-bin-line" v-on:click="update_notes_delete(note.id)"></i>
+                            <i class="ri-checkbox-circle-line" v-on:click="update_notes_done(note.id, false)"></i>
+                            <strike>{{note.title}}</strike>
+                        </div>
+                        <div v-else>
+                            <i class="ri-checkbox-blank-circle-line" v-on:click="update_notes_done(note.id, true)"></i>
+                            {{note.title}}
+                        </div>
+                    </li>
+                </ol>
+
+                <div>
+                    <label for="newtask"> New Task: </label>
+                    <input @keyup.enter="create_new_task()" type="text" name="newtask" id="newtask"
+                        v-model="new_task_title">
+                    <button @click="create_new_task()">Create new task</button>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html

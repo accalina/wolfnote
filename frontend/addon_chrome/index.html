@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="axios.js"></script>
+    <script src="jquery.js"></script>
+    <title>Cloudwolf Notes</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="core-instance">
+        <div>
+            <h1>Todo App 
+                <i class="ri-restart-line" id="fetch"></i>
+                <i class="ri-logout-circle-r-line" id="logout"></i>
+            </h1>
+        </div>
+
+        <fieldset class="fieldset" id="authenticate">
+            <legend>Authenticate</legend>
+
+            <table>
+                <tr>
+                    <td><label for="username">Username: </label></td>
+                    <td><input type="text" name="username" id="username"></td>
+                </tr>
+                <tr>
+                    <td><label for="password">Password: </label></td>
+                    <td><input type="password" name="password" id="password"></td>
+                </tr>
+                <tr id="invalid-password" style="display: none;">
+                    <td colspan="2" style="color: red;">invalid username / password</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button id="login">login</button>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+
+        
+        <fieldset class="fieldset" id="taskview" style="display: none">
+            <legend>Tasklist</legend>
+            <ol id="tasklist">
+            </ol>
+        </fieldset>
+
+    </div>
+    <script src="app.js"></script>
+</body>
+</html

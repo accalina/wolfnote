@@ -1,0 +1,16 @@
+version: '3.5'
+services:
+  wolfnote-be:
+    image: accalina/pocketbase:0.92
+    container_name: wolfnote-be
+    ports:
+      - "8091:8090"
+    volumes:
+      - "./data:/pb_data"
+      - "./public:/pb_public"
+    healthcheck:
+      test: netstat -tulpn | grep 80 || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 2
+    command: ./pocketbase serve --http 0.0.0.0:8090 --dir=/pb_data --publicDir=/pb_public
